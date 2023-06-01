@@ -7,9 +7,9 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
+        this.usuariosPath = '/api/usuarios';
         //Middlewares
         this.middlewares();
-
         //rutas de mi app
         this.routes();
     }
@@ -22,34 +22,7 @@ class Server {
     }
 
     routes() {
-        this.app.get('/api', (req, res) => {
-            res.json(
-                {
-                    msg: 'GET API'
-                }
-            )
-        })
-        this.app.put('/api', (req, res) => {
-            res.json(
-                {
-                    msg: 'PUT API'
-                }
-            )
-        })
-        this.app.post('/api', (req, res) => {
-            res.json(
-                {
-                    msg: 'POST API'
-                }
-            )
-        })
-        this.app.delete('/api', (req, res) => {
-            res.json(
-                {
-                    msg: 'DELETE API'
-                }
-            )
-        })
+        this.app.use(this.usuariosPath, require('../routes/usuarios'))
     }
 
     listen() {
